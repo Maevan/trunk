@@ -1,0 +1,73 @@
+package example;
+
+import java.util.Arrays;
+
+public class StringSplitTest {
+	public static void main(String[] args) {
+		String[] strs = { "org\\apache\\commons\\commons-email\\1.2\\commons-email-1.2.jar",
+				"javax\\mail\\mail\\1.4.1\\mail-1.4.1.jar",
+				"javax\\activation\\activation\\1.1\\activation-1.1.jar",
+				"net\\sf\\json-lib\\json-lib\\2.4\\json-lib-2.4-jdk15.jar",
+				"commons-beanutils\\commons-beanutils\\1.8.0\\commons-beanutils-1.8.0.jar",
+				"commons-collections\\commons-collections\\3.2.1\\commons-collections-3.2.1.jar",
+				"commons-lang\\commons-lang\\2.5\\commons-lang-2.5.jar",
+				"net\\sf\\ezmorph\\ezmorph\\1.0.6\\ezmorph-1.0.6.jar",
+				"junit\\junit\\4.10\\junit-4.10.jar",
+				"org\\hamcrest\\hamcrest-core\\1.1\\hamcrest-core-1.1.jar",
+				"org\\slf4j\\slf4j-api\\1.6.6\\slf4j-api-1.6.6.jar",
+				"com\\googlecode\\xmemcached\\xmemcached\\1.3.8\\xmemcached-1.3.8.jar",
+				"aspectj\\aspectjrt\\1.5.3\\aspectjrt-1.5.3.jar",
+				"com\\oracle\\ojdbc6\\11.2.0.3\\ojdbc6-11.2.0.3.jar",
+				"org\\mongodb\\mongo-java-driver\\2.9.0\\mongo-java-driver-2.9.0.jar",
+				"org\\springframework\\spring-core\\3.2.0.M1\\spring-core-3.2.0.M1.jar",
+				"commons-logging\\commons-logging\\1.1.1\\commons-logging-1.1.1.jar",
+				"org\\springframework\\spring-asm\\3.2.0.M1\\spring-asm-3.2.0.M1.jar",
+				"org\\springframework\\spring-context\\3.2.0.M1\\spring-context-3.2.0.M1.jar",
+				"org\\springframework\\spring-expression\\3.2.0.M1\\spring-expression-3.2.0.M1.jar",
+				"org\\springframework\\spring-beans\\3.2.0.M1\\spring-beans-3.2.0.M1.jar",
+				"org\\springframework\\spring-aop\\3.2.0.M1\\spring-aop-3.2.0.M1.jar",
+				"org\\springframework\\spring-orm\\3.2.0.M1\\spring-orm-3.2.0.M1.jar",
+				"org\\springframework\\spring-tx\\3.2.0.M1\\spring-tx-3.2.0.M1.jar",
+				"aopalliance\\aopalliance\\1.0\\aopalliance-1.0.jar",
+				"org\\springframework\\spring-web\\3.2.0.M1\\spring-web-3.2.0.M1.jar",
+				"org\\springframework\\spring-jdbc\\3.2.0.M1\\spring-jdbc-3.2.0.M1.jar",
+				"org\\apache\\struts\\struts2-convention-plugin\\2.3.5-SNAPSHOT\\struts2-convention-plugin-2.3.5-SNAPSHOT.jar",
+				"org\\apache\\commons\\commons-lang3\\3.1\\commons-lang3-3.1.jar",
+				"org\\apache\\struts\\struts2-core\\2.3.5-SNAPSHOT\\struts2-core-2.3.5-SNAPSHOT.jar",
+				"org\\apache\\struts\\xwork\\xwork-core\\2.3.5-SNAPSHOT\\xwork-core-2.3.5-SNAPSHOT.jar",
+				"asm\\asm-commons\\3.3\\asm-commons-3.3.jar",
+				"asm\\asm-tree\\3.3\\asm-tree-3.3.jar",
+				"org\\freemarker\\freemarker\\2.3.19\\freemarker-2.3.19.jar",
+				"ognl\\ognl\\3.0.5\\ognl-3.0.5.jar",
+				"commons-fileupload\\commons-fileupload\\1.2.2\\commons-fileupload-1.2.2.jar",
+				"commons-io\\commons-io\\2.0.1\\commons-io-2.0.1.jar", "\\Java\\jdk1.6.0_21\\lib\\tools.jar",
+				"org\\apache\\struts\\struts2-spring-plugin\\2.3.5-SNAPSHOT\\struts2-spring-plugin-2.3.5-SNAPSHOT.jar",
+				"org\\apache\\struts\\struts2-json-plugin\\2.3.5-SNAPSHOT\\struts2-json-plugin-2.3.5-SNAPSHOT.jar",
+				"org\\hibernate\\hibernate-entitymanager\\3.6.10.Final\\hibernate-entitymanager-3.6.10.Final.jar",
+				"org\\hibernate\\hibernate-core\\3.6.10.Final\\hibernate-core-3.6.10.Final.jar",
+				"antlr\\antlr\\2.7.6\\antlr-2.7.6.jar", "dom4j\\dom4j\\1.6.1\\dom4j-1.6.1.jar",
+				"org\\hibernate\\hibernate-commons-annotations\\3.2.0.Final\\hibernate-commons-annotations-3.2.0.Final.jar",
+				"javax\\transaction\\jta\\1.1\\jta-1.1.jar", "cglib\\cglib\\2.2\\cglib-2.2.jar",
+				"asm\\asm\\3.1\\asm-3.1.jar",
+				"javassist\\javassist\\3.12.0.GA\\javassist-3.12.0.GA.jar",
+				"org\\hibernate\\javax\\persistence\\hibernate-jpa-2.0-api\\1.0.1.Final\\hibernate-jpa-2.0-api-1.0.1.Final.jar",
+				"com\\googlecode\\hibernate-memcached\\1.3\\hibernate-memcached-1.3.jar",
+				"spy\\spymemcached\\2.7.1\\spymemcached-2.7.1.jar",
+				"org\\hibernate\\hibernate\\3.2.6.ga\\hibernate-3.2.6.ga.jar",
+				"net\\sf\\ehcache\\ehcache\\1.2.3\\ehcache-1.2.3.jar",
+				"asm\\asm-attrs\\1.5.3\\asm-attrs-1.5.3.jar",
+				"org\\hibernatespatial\\hibernate-spatial-oracle\\1.1.1\\hibernate-spatial-oracle-1.1.1.jar",
+				"org\\hibernatespatial\\hibernate-spatial\\1.1.1\\hibernate-spatial-1.1.1.jar",
+				"com\\vividsolutions\\jts\\1.12\\jts-1.12.jar",
+				"xerces\\xercesImpl\\2.4.0\\xercesImpl-2.4.0.jar",
+				"com\\googlecode\\genericdao\\dao-hibernate\\1.1.0\\dao-hibernate-1.1.0.jar",
+				"com\\googlecode\\genericdao\\dao\\1.1.0\\dao-1.1.0.jar",
+				"com\\googlecode\\genericdao\\search\\1.1.0\\search-1.1.0.jar",
+				"javax\\persistence\\persistence-api\\1.0\\persistence-api-1.0.jar",
+				"com\\googlecode\\genericdao\\search-hibernate\\1.1.0\\search-hibernate-1.1.0.jar" };
+		Arrays.sort(strs);
+		for(String str : strs){
+			System.err.println(str);
+		}
+	}
+}
