@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>Template Test</title>
+</head>
+<body>
+Hello $name!
+<br />
+<table>
+<!-- 就是python语法 注意不要乱 -->
+$for i in range(10):
+    <tr>
+		<td>$i</td>
+	</tr>
+</table>
+
+<table>
+$for c in ["a", "b", "c", "d"]:
+    <tr>
+        <td>$loop.index</td>
+        <td>$c</td>
+    </tr>
+</table>
+(可以用两个$$来输出$$)
+<br/>
+$def foo():
+	fooooooo
+
+
+$foo()
+
+<!-- 注意这里的空格 如果加了空格 是赋值表达式  如果不加这个的话 会直接把当前行的执行结果输出出来-->
+$'这个不是赋值表达式'
+$ id = get_id() 
+Id $id
+</body>
+</html>

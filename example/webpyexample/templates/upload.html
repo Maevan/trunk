@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>文件上传</title>
+</head>
+<body>
+	<form action="/upload/save" method="post" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>Owner:</td>
+				<td><input type="text" name="owner"></td>
+			</tr>
+			<tr>
+				<td>File:</td>
+				<td><input type="file" name="myfile"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
