@@ -30,5 +30,5 @@ print("aaa   ".rstrip());#将字符串右边的空格清理掉
 print("a:b and c".partition(":"));#使用指定的分隔符分隔字符串并返回一个元组 PS.不是split 他只是将第一个发现的分隔符之前的字符作为一个元素 分隔符本身做一个元素 分隔符之后的字符串作为一个元素 分成三个..
 print("a:b:c:d:e".split(":", 3));#使用指定的分隔符分隔字符串并返回一个列表 可以指定划分次数
 print("abbc".replace("b", "a"));#将字符窜内容替换为指定的内容
-
+print("abbc".replace("\\b+", "a"));
 #剩下的不写了 像just index find partition 这些函数还有正则方式的 只需要方法名前加r 比如rfind
