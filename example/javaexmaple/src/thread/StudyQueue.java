@@ -9,10 +9,14 @@ public class StudyQueue {
 	static final LinkedBlockingQueue<Integer> queue = new LinkedBlockingQueue<Integer>();// 使用这个队列会自动帮我们同步
 
 	public static void main(String[] args) {
-		ExecutorService executor = Executors.newFixedThreadPool(2);
-		
-		executor.submit(new Consumer());
-		executor.submit(new Producer());
+		ExecutorService executor = Executors.newFixedThreadPool(50);
+
+		for (int i = 0; i < 20; i++) {
+			executor.submit(new Consumer());
+		}
+		for (int i = 0; i < 30; i++) {
+			executor.submit(new Producer());
+		}
 	}
 
 	static class Consumer implements Runnable {
@@ -21,7 +25,8 @@ public class StudyQueue {
 		public void run() {
 			while (true) {
 				try {
-					Thread.sleep(random.nextInt(2000));
+					// 处理抓取结果
+					// Thread.sleep(random.nextInt(2000));
 					System.err.println("Consum " + queue.take());
 				} catch (InterruptedException e) {}
 			}
@@ -33,13 +38,12 @@ public class StudyQueue {
 
 		public void run() {
 			int count = 0;
-			try {
-				while (true) {
-					Thread.sleep(random.nextInt(2000));
-					System.err.println("Produce " + ++count);
-					queue.add(count);
-				}
-			} catch (InterruptedException e) {}
+			while (true) {
+				// 抓取任务
+				// Thread.sleep(random.nextInt(2000));
+				System.err.println("Produce " + ++count);
+				queue.add(count);
+			}
 		}
 	}
 }

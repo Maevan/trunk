@@ -10,12 +10,12 @@ from urllib import request;
 import os;
 root = 'G:/meiriyiwen/';
 message = Request('http://meiriyiwen.com/random', headers={'Accept-Charset': 'UTF-8,utf-8;q=0.7,*;q=0.3'});
-template = """<!DOCTYPE html><html><head><title>%s</title></head><body><div>%s</div><a href="./index.html">返回上一级</a></body></html>"""
+template = """<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>%s</title></head><body><div>%s</div><a href="./index.html">返回上一级</a></body></html>"""
 main_template = """
-    <!DOCTYPE html><html><head><title>每日一文本地版</title></head><body><div>作者目录<ul>%s</ul></div></body></html>
+    <!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>每日一文本地版</title></head><body><div>作者目录<ul>%s</ul></div></body></html>
 """
 author_template = """
-    <!DOCTYPE html><html><head><title>%s</title></head><body><div>文章目录<ul>%s</ul></div><a href="../index.html">返回上一级</a></body></html>
+    <!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>%s</title></head><body><div>文章目录<ul>%s</ul></div><a href="../index.html">返回上一级</a></body></html>
 """
 if os.access(root , os.F_OK) == 0:
     os.mkdir(root);
@@ -35,7 +35,7 @@ def do(requests=500):
         if os.access(root + author, os.F_OK) == 0:
             os.mkdir(root + author);
         try:
-            f = open(root + author + "/" + request.quote(title).replace("%", "_") + ".html", mode='w');
+            f = open(root + author + "/" + request.quote(title).replace("%", "_") + ".html", mode='w', encoding="utf-8");
             f.write(template % (title, detail));
             f.close();
         except UnicodeEncodeError as e:
@@ -55,17 +55,17 @@ def generateIndexs():
             for article_file in article_files:
                 if article_file != 'index.html':
                     article_index += '<li><a href="./%s">%s</a></li>' % (article_file, request.unquote(article_file.replace("_", "%")));
-            af = open(root + author_dir + "/index.html", mode='w');
+            af = open(root + author_dir + "/index.html", mode='w', encoding='utf-8');
             af.write(author_template % (author, article_index));
             af.close();
             
-        f = open(root + 'index.html', mode='w');
+        f = open(root + 'index.html', mode='w', encoding='utf-8');
         f.write(main_template % author_indexs);
         f.close();
     
 threads = [];
 for i in range(1, 5):
-    t = Thread(group=None, target=do, args=(30,), name='spider');
+    t = Thread(group=None, target=do, args=(50,), name='spider');
     t.start();
     
     threads.append(t);
