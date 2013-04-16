@@ -65,7 +65,7 @@ def generateIndexs():
     
 threads = [];
 for i in range(1, 5):
-    t = Thread(group=None, target=do, args=(50,), name='spider');
+    t = Thread(group=None, target=do, args=(10,), name='spider');
     t.start();
     
     threads.append(t);
