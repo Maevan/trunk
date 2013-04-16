@@ -15,6 +15,7 @@ import javax.jms.QueueSession;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
+import util.Constant;
 import util.MQueueConnectionFactory;
 
 public class QBorrowser {

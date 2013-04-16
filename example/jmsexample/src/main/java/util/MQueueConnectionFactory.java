@@ -5,14 +5,14 @@ import javax.jms.QueueConnectionFactory;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
-import ch04.p2p.Constant;
 
 public class MQueueConnectionFactory {
 
 	public static QueueConnection getQueueConnection() throws Exception {
 		if (qcf == null) {
+			Constant.DEFAULT_JNDI_ENV.put("connectionFactoryNames", Constant.DEFAULT_QUEUE_FACTORY);
 			Context ctx = new InitialContext(Constant.DEFAULT_JNDI_ENV);
-			qcf = (QueueConnectionFactory) ctx.lookup(Constant.DEFAULT_FACTORY);
+			qcf = (QueueConnectionFactory) ctx.lookup(Constant.DEFAULT_QUEUE_FACTORY);
 		}
 		return ((QueueConnectionFactory) qcf).createQueueConnection();
 	}
