@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mapbar.sso.bean.ClientMap;
+
 /**
  * Servlet implementation class Token
  */
@@ -31,8 +33,9 @@ public class Token extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String token = request.getParameter("token");
 		PrintWriter out = new PrintWriter(response.getWriter());
-		if (token != null && token.trim().length() != 0) {
-			out.write("state:0;name:" + TOKEN_MAP.get(token));
+		if (token != null && token.trim().length() != 0 && TOKEN_MAP.containsKey(token)) {
+			ClientMap cm = TOKEN_MAP.get(token);
+			out.write("state:0;name:" + cm.getName());
 		} else {
 			out.write("state:1");
 		}
@@ -47,5 +50,5 @@ public class Token extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	protected static final ConcurrentMap<String, String> TOKEN_MAP = new ConcurrentHashMap<String, String>();
+	protected static final ConcurrentMap<String, ClientMap> TOKEN_MAP = new ConcurrentHashMap<String, ClientMap>();
 }

@@ -21,15 +21,11 @@
 			<param-name>ssoURL</param-name>
 			<param-value>http://10.10.32.35:8080/sso-master/login</param-value>
 		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>Validator</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter>
-		<display-name>SetUser</display-name>
-		<filter-name>SetUser</filter-name>
-		<filter-class>com.mapbar.sso.filter.SetUser</filter-class>
+		<init-param>
+			<description>当前应用注销页面</description>
+			<param-name>clientLoggotURL</param-name>
+			<param-value>/loggot</param-value>
+		</init-param>
 		<init-param>
 			<description>token验证页面</description>
 			<param-name>tokenURL</param-name>
@@ -37,14 +33,16 @@
 		</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>SetUser</filter-name>
+		<filter-name>Validator</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+
 	<servlet>
 		<description></description>
 		<display-name>Loggot</display-name>
 		<servlet-name>Loggot</servlet-name>
-		<servlet-class>com.mapbar.sso.filter.Loggot</servlet-class>
+		<servlet-class>com.mapbar.sso.servlet.Loggot</servlet-class>
 		<init-param>
 			<description>注销页面</description>
 			<param-name>loggotURL</param-name>

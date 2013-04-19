@@ -6,7 +6,11 @@
 </head>
 <body>
 	<form action="login" method="post">
-		<input name="clientURL" type="hidden" value="${clientURL }"> 名称:<input name="login" type="text"> <br /> <input type="submit">
+		<input name="clientURL" type="hidden" value="${clientURL }"> 
+		<input name="clientJSessionId" type="hidden" value="${clientJSessionId }"> 
+		<input name="clientLoggotURL" type="hidden" value="${clientLoggotURL }">
+		名称:<input name="login" type="text"> <br />
+		<input type="submit">
 	</form>
 </body>
 </html>

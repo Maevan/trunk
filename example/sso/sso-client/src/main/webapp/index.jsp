@@ -6,7 +6,7 @@
 <title>登入成功</title>
 </head>
 <body>
-	登入成功!!!${sessionScope.user}
+	登入成功!!!${sessionScope.user} : <%=session.getId() %>
 	<a href="loggot">注销</a>
 </body>
 </html>

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mapbar.sso.bean.ClientMap;
+
 /**
  * Servlet implementation class Login
  */
@@ -30,15 +32,24 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Cookie[] cookies = request.getCookies();
 		String clientURL = request.getParameter("clientURL");
+		String clientJSessionId = request.getParameter("clientJSessionId");
+		String clientLoggotURL = request.getParameter("clientLoggotURL");
 		if (cookies != null && cookies.length != 0)
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("token")) {
+					String token = cookie.getValue();
+					if (!Token.TOKEN_MAP.containsKey(token)) {
+						break;
+					}
+					Token.TOKEN_MAP.get(token).add(clientLoggotURL, clientJSessionId);
 					clientURL = URLDecoder.decode(clientURL, "utf-8");
 					response.sendRedirect(clientURL + (clientURL.indexOf("?") == -1 ? "?token=" : "&token=") + cookie.getValue());
 					return;
 				}
 			}
 		request.setAttribute("clientURL", clientURL);
+		request.setAttribute("clientJSessionId", clientJSessionId);
+		request.setAttribute("clientLoggotURL", clientLoggotURL);
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
@@ -49,9 +60,11 @@ public class Login extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String clientURL = request.getParameter("clientURL");
 		String login = request.getParameter("login");
+		String jsessionId = request.getParameter("clientJSessionId");
+		String clientLoggotURL = request.getParameter("clientLoggotURL");
 		String token = UUID.randomUUID().toString();
 
-		Token.TOKEN_MAP.put(token, login);
+		Token.TOKEN_MAP.put(token, new ClientMap(login, clientLoggotURL, jsessionId));
 		request.setAttribute("token", token);
 		request.setAttribute("clientURL", clientURL);
 

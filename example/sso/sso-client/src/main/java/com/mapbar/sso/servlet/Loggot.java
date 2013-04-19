@@ -1,4 +1,4 @@
-package com.mapbar.sso.filter;
+package com.mapbar.sso.servlet;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -31,8 +31,10 @@ public class Loggot extends HttpServlet {
 		String token = (String) request.getSession().getAttribute("token");
 		request.getSession().removeAttribute("user");
 		request.getSession().removeAttribute("token");
-		response.sendRedirect(loggotURL + "?clientURL=" + URLEncoder.encode("http://" + request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/index.jsp", "UTF-8")
-				+ "&token=" + token);
+		String url = loggotURL + "?clientURL=" + URLEncoder.encode("http://" + request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/index.jsp", "UTF-8") + "&token="
+				+ token;
+		response.sendRedirect(url);
+		return;
 	}
 
 	/**
