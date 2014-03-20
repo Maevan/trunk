@@ -10,7 +10,6 @@ import com.example.springboot.example.bean.Person;
 @Controller
 @Component
 public class ShowPersonController {
-
 	@RequestMapping("/showPerson")
 	public @ResponseBody
 	Person showPerson() {

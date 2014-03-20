@@ -53,4 +53,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+	<scm>
+		<url>scm:git:https://github.com/1d7500/trunk/example/spring-boot</url>
+	</scm>
 </project>
