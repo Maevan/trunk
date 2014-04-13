@@ -59,7 +59,6 @@ public class MergeSort {
 		while (leftCount != 0) {
 			tmp[i++] = numbers[left++];
 			leftCount--;
-			}
 		}
 		
 		System.arraycopy(tmp, 0, numbers, start, tmp.length);
