@@ -11,6 +11,7 @@ func main() {
 	stack.Push(-15)
 	stack.Push([]string{"pin", "clip"})
 	stack.Push(81.52)
+	fmt.Println(stack.Len())
 	for {
 		item, err := stack.Pop()
 		if err != nil {
