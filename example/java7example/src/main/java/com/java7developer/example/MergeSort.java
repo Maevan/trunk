@@ -48,20 +48,19 @@ public class MergeSort {
 				rightCount--;
 			}
 		}
-		if (leftCount + rightCount != 0) {
-			if (leftCount == 0) {
-				while (rightCount != 0) {
-					tmp[i++] = numbers[right++];
-					rightCount--;
-				}
-			}
-			if (rightCount == 0) {
-				while (leftCount != 0) {
-					tmp[i++] = numbers[left++];
-					leftCount--;
-				}
-			}
+		
+		
+		while (rightCount != 0) {
+			tmp[i++] = numbers[right++];
+			rightCount--;
 		}
+		
+		
+		while (leftCount != 0) {
+			tmp[i++] = numbers[left++];
+			leftCount--;
+		}
+		
 		System.arraycopy(tmp, 0, numbers, start, tmp.length);
 	}
 }
