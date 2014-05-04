@@ -3,7 +3,6 @@ package net.noblocking;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
@@ -114,7 +113,7 @@ public class ChatRoom {
 						}
 					} else if (key.isReadable()) {
 						Session session = (Session) key.attachment();
-						if (session.append()) {
+						if (!session.append()) {
 							key.cancel();
 						}
 					} else if (key.isWritable()) {
@@ -134,7 +133,7 @@ public class ChatRoom {
 						} catch (ClosedChannelException e) {
 							close(client);
 						}
-						//key.cancel();
+						// key.cancel();
 					}
 					it.remove();
 				}
@@ -174,45 +173,53 @@ public class ChatRoom {
 			buffer.flip();
 			legacy = ByteBuffer.allocate(legacy.limit() + buffer.limit()).put(buffer);
 			legacy.flip();
-			CharBuffer message = legacy.asCharBuffer();
-
 			StringBuilder sb = new StringBuilder(last);
-			while (message.hasRemaining()) {
-				char cur;
-				for (cur = message.get(); message.hasRemaining() && cur != '\n';) {
+			last = "";
+			while (legacy.hasRemaining()) {
+				char cur = '\n';
+				while (legacy.hasRemaining()) {
+					cur = (char) legacy.get();
+					if (cur == '\n') {
+						break;
+					}
 					sb.append(cur);
 				}
 				if (cur == '\n') {
-					if (sb.length() > 0) {
-						String m = sb.substring(0, sb.length() - 2);
-						if (m.matches("\\w+@[\\w\\d]+")) {
-							if (name == null) {
-								write("Please input your name first.");
-							}
-							messages.addLast(m);
-						} else if (name == null) {
-							if (m.matches("\\w+")) {
-
-							} else if (sessions.containsKey(name)) {
-								write("'" + name + "' is already exisits");
-							}
-							name = m;
-							write("Your Name is '" + name + "'");
-						} else if (m.equals("list")) {
-							// TODO 此时应该调用write方法将所有在线的用户全部输出
-						} else {
-							write("Illegal message[" + m + "]");
+					if (sb.length() == 0) {
+						continue;
+					}
+					String m = sb.substring(0, sb.length() - 1);
+					if (m.length() == 0) {
+						continue;
+					}
+					if (m.matches("\\w+@[\\w\\d]+")) {
+						if (name == null) {
+							write("Please input your name first.");
 						}
+						messages.addLast(m);
+					} else if (name == null) {
+						if (!m.matches("\\w+")) {
+							write("'" + name + "' is illegal name");
+						} else if (sessions.containsKey(name)) {
+							write("'" + name + "' is already exisits");
+						}
+						name = m;
+						sessions.put(name, this);
+						write("Your Name is '" + name + "'");
+					} else if (m.equals("list")) {
+						// TODO 此时应该调用write方法将所有在线的用户全部输出
+					} else {
+						write("Illegal message[" + m + "]");
 					}
 				} else {
-					last = message.toString();
+					last = sb.toString();
 				}
 			}
 			return true;
 		}
 
 		public boolean write(String message) {
-			ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
+			ByteBuffer buffer = ByteBuffer.wrap(("\r\n" + message).getBytes());
 			while (buffer.hasRemaining()) {
 				int count;
 				try {
