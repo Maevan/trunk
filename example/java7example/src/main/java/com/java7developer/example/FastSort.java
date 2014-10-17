@@ -9,9 +9,10 @@ import java.util.concurrent.RecursiveAction;
 public class FastSort {
 	public static void main(String[] args) {
 		int[] nums = new int[] { 5, 4, 6, 2, 8, 7, 9, 1, 3 };
-		
+
 		ForkJoinPool pool = new ForkJoinPool();
-		pool.invoke(new ForkJoinFastSort(nums, 0, 8));
+		ForkJoinTask<Void> t = pool.submit(new ForkJoinFastSort(nums, 0, 8));
+		t.join();
 		for (int i : nums) {
 			System.err.print(i);
 		}
@@ -57,46 +58,14 @@ public class FastSort {
 			List<ForkJoinTask<Void>> tasks = new LinkedList<>();
 
 			if (i - start > 1) {
-				tasks.add(new ForkJoinFastSort(nums, 0, i - 1));
+				tasks.add(new ForkJoinFastSort(nums, 0, i - 1).fork());
 			}
 			if (end - j > 1) {
-				tasks.add(new ForkJoinFastSort(nums, j + 1, end));
+				tasks.add(new ForkJoinFastSort(nums, j + 1, end).fork());
 			}
-			invokeAll(tasks);
-		}
-	}
-
-	/*
-	 * normal
-	 */
-	public static void sort(int[] nums, int start, int end) {
-		int i = start;
-		int j = end;
-		int swap = -1;
-		
-		while (i < j) {
-			while (i < j && nums[i] <= nums[j])
-				j--;
-			if (i < j) {
-				swap = nums[i];
-				nums[i] = nums[j];
-				nums[j] = swap;
-				display(nums);
+			for (ForkJoinTask<Void> task : tasks) {
+				task.join();
 			}
-			while (i < j && nums[i] < nums[j])
-				i++;
-			if (i < j) {
-				swap = nums[i];
-				nums[i] = nums[j];
-				nums[j] = swap;
-				display(nums);
-			}
-		}
-		if (i - start > 1) { // 递归调用，把key前面的完成排序
-			sort(nums, start, i - 1);
-		}
-		if (end - j > 1) {
-			sort(nums, j + 1, end); // 递归调用，把key后面的完成排序
 		}
 	}
 
