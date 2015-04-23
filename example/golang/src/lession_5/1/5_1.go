@@ -15,7 +15,6 @@ func main() {
 	copy(i, j)
 	fmt.Println(i, j, n)
 	fmt.Println(len(i))
-
 	for _, value := range i {
 		fmt.Print(value)
 	}

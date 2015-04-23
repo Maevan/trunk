@@ -6,11 +6,12 @@ import (
 )
 
 func main() {
-	var stack stack.Stack
+	stack := stack.Stack{}
 	stack.Push("hay")
 	stack.Push(-15)
 	stack.Push([]string{"pin", "clip"})
 	stack.Push(81.52)
+	fmt.Println(stack.Len())
 	fmt.Println(stack.Len())
 	for {
 		item, err := stack.Pop()

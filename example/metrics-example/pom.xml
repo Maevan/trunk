@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>example</groupId>
-	<artifactId>thrift</artifactId>
+	<groupId>com.example</groupId>
+	<artifactId>metrics</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>thrift</name>
+	<name>metrics</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -25,16 +25,12 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.thrift</groupId>
-			<artifactId>libthrift</artifactId>
-			<version>0.9.1</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.0.13</version>
+			<groupId>com.yammer.metrics</groupId>
+			<artifactId>metrics-core</artifactId>
+			<version>2.2.0</version>
 		</dependency>
 	</dependencies>
 </project>
